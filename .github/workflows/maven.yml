@@ -44,7 +44,7 @@ jobs:
   
   interface-tests:
       runs-on: ubuntu-latest
-      needs: build
+      needs: unit-tests
       steps:
         - name: Configurar ambiente
           uses: actions/setup-node@v2
