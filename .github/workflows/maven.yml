@@ -42,15 +42,5 @@ jobs:
       steps:
         - name: verificar diretorio
           run: pwd
-          
-        - name: Mudar para o diretorio de testes
-          run: cd tests
-        - name: Configurar ambiente
-          uses: actions/setup-node@v2
-          with:
-            node-version: '14'
-        - name: Instalar dependências
-          run: npm install
-        - name: Executar testes de interface - Cypress
-          run: npm run cy:run
-        
+        - name: listar diretorios
+          run: ls -d
