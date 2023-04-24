@@ -43,4 +43,4 @@ jobs:
         - name: verificar diretorio
           run: pwd
         - name: listar diretorios
-          run: ls -d */
+          run: ls
