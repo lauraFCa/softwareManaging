@@ -1,10 +1,12 @@
 package br.cesjf.hotellucena.dao;
 
 import br.cesjf.hotellucena.model.Apartamento;
+import br.cesjf.hotellucena.util.PersistenceUtil;
+
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import br.cesjf.hotellucena.util.PersistenceUtil;
+
 
 public class ApartamentoDAO {
 

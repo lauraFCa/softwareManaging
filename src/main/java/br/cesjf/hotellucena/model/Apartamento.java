@@ -43,7 +43,7 @@ public class Apartamento implements Serializable {
     private int codigoApartamento;
     @JoinColumn(name = "categoria_codigoCategoria", referencedColumnName = "codigoCategoria")
     @ManyToOne(optional = false)
-    private Categoria categoriacodigoCategoria;
+    public Categoria categoriacodigoCategoria;
 
     public Apartamento() {
     }
