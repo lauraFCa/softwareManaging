@@ -62,7 +62,7 @@ jobs:
           tar -xzf apache-jmeter-5.4.1.tgz
           curl -LJO https://github.com/OWNER/REPO/actions/runs/12345678/artifacts/manifest.json
           BASE_URL=$(cat manifest.json | grep -Po '"baseUrl":.*?[^\\]",' | sed 's/"baseUrl":"\(.*\)",/\1/g')
-          apache-jmeter-5.4.1/bin/jmeter -n -t path/to/your/testplan.jmx -JbaseUrl=${BASE_URL} -l path/to/results.jtl
+          apache-jmeter-5.4.1/bin/jmeter -n -t testplan.jmx -JbaseUrl=${BASE_URL} -l path/to/results.jtl
         working-directory: ${{ github.workspace }}
 
   deploy:
