@@ -38,9 +38,11 @@ jobs:
 
     - name: Build with Maven
       run: mvn -B clean package
+           echo "build diretorio = $(pwd)"
 
     - name: Run tests with Maven
       run: mvn test
+           echo "run tests diretorio = $(pwd)"
 
     - name: Generate test report data
       run: |
