@@ -41,10 +41,10 @@ jobs:
           # Install chart.js and the GitHub API client
           npm install chart.js @actions/github
           # Generate test report data
-          TEST_COUNT=$(grep -oP '(?<=<testsuites[^>]* tests=")\d+' report.xml)
-          TEST_PASSED=$(grep -oP '(?<=<testsuites[^>]* passed=")\d+' report.xml)
-          TEST_FAILED=$(grep -oP '(?<=<testsuites[^>]* failures=")\d+' report.xml)
-          TEST_SKIPPED=$(grep -oP '(?<=<testsuites[^>]* skipped=")\d+' report.xml)
+          TEST_COUNT=$(grep -oE '<testsuites[^>]* tests="\K\d+' report.xml)
+          TEST_PASSED=$(grep -oE '<testsuites[^>]* passed="\K\d+' report.xml)
+          TEST_FAILED=$(grep -oE '<testsuites[^>]* failures="\K\d+' report.xml)
+          TEST_SKIPPED=$(grep -oE '<testsuites[^>]* skipped="\K\d+' report.xml)
           # Generate chart
           node -e "
           const { Octokit } = require('@octokit/rest');
