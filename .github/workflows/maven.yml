@@ -44,10 +44,10 @@ jobs:
 
     - name: Generate test report data
       run: |
-        TEST_COUNT=$(grep -oE '<testsuites[^>]* tests="\K\d+' target/surefire-reports/TEST-com.example.AppTest.xml)
-        TEST_PASSED=$(grep -oE '<testsuites[^>]* passed="\K\d+' target/surefire-reports/TEST-com.example.AppTest.xml)
-        TEST_FAILED=$(grep -oE '<testsuites[^>]* failures="\K\d+' target/surefire-reports/TEST-com.example.AppTest.xml)
-        TEST_SKIPPED=$(grep -oE '<testsuites[^>]* skipped="\K\d+' target/surefire-reports/TEST-com.example.AppTest.xml)
+        TEST_COUNT=$(grep -oE '<testsuites[^>]* tests="\K\d+' target/surefire-reports/TEST-*.xml)
+        TEST_PASSED=$(grep -oE '<testsuites[^>]* passed="\K\d+' target/surefire-reports/TEST-*.xml)
+        TEST_FAILED=$(grep -oE '<testsuites[^>]* failures="\K\d+' target/surefire-reports/TEST-*.xml)
+        TEST_SKIPPED=$(grep -oE '<testsuites[^>]* skipped="\K\d+' target/surefire-reports/TEST-*.xml)
 
     - name: Generate chart
       run: |
