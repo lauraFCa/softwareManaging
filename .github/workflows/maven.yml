@@ -22,6 +22,7 @@ jobs:
     - name: Build
       run: mvn -B package --file pom.xml
 
+
   unit-tests:
     runs-on: ubuntu-latest
     needs: build
@@ -35,7 +36,62 @@ jobs:
           java-version: '8'
       - name: Run Unit Tests
         run: mvn -B test --file pom.xml
-  
+      - name: Generate test report
+        run: |
+          # Install chart.js and the GitHub API client
+          npm install chart.js @actions/github
+          # Generate test report data
+          TEST_COUNT=$(grep -oP '(?<=<testsuites[^>]* tests=")\d+' report.xml)
+          TEST_PASSED=$(grep -oP '(?<=<testsuites[^>]* passed=")\d+' report.xml)
+          TEST_FAILED=$(grep -oP '(?<=<testsuites[^>]* failures=")\d+' report.xml)
+          TEST_SKIPPED=$(grep -oP '(?<=<testsuites[^>]* skipped=")\d+' report.xml)
+          # Generate chart
+          node -e "
+          const { Octokit } = require('@octokit/rest');
+          const Chart = require('chart.js');
+          const data = {
+            labels: ['Passed', 'Failed', 'Skipped'],
+            datasets: [
+              {
+                label: 'Test Results',
+                data: [$TEST_PASSED, $TEST_FAILED, $TEST_SKIPPED],
+                backgroundColor: ['#28a745', '#dc3545', '#ffc107']
+              }
+            ]
+          };
+          const config = {
+            type: 'doughnut',
+            data,
+            options: {
+              plugins: {
+                legend: {
+                  position: 'bottom'
+                }
+              }
+            }
+          };
+          const canvas = document.createElement('canvas');
+          const context = canvas.getContext('2d');
+          new Chart(context, config);
+          console.log(canvas.toDataURL());
+          "
+        id: chart
+      - name: Create chart issue comment
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+            const { data: issue } = await octokit.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Test Results',
+              body: `![Test Results](${{ steps.chart.outputs.chart }})`,
+            });
+            console.log(`Created issue comment ${issue.html_url}`);
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
   interface-tests:
       runs-on: ubuntu-latest
       needs: unit-tests
@@ -64,6 +120,7 @@ jobs:
           curl -LJO https://github.com/OWNER/REPO/actions/runs/12345678/artifacts/manifest.json
           BASE_URL=$(cat manifest.json | grep -Po '"baseUrl":.*?[^\\]",' | sed 's/"baseUrl":"\(.*\)",/\1/g')
           apache-jmeter-5.4.1/bin/jmeter -n -t testplan.jmx -JbaseUrl=${BASE_URL} -l results.jtl
+
 
   deploy:
     runs-on: ubuntu-latest
