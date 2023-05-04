@@ -56,6 +56,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: interface-tests
     steps:
+      - name: Set working directory
+        working-directory: manutencaoSoft
       - name: Teste de Performance com JMeter
         run: |
           wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.1.tgz
