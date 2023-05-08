@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Set up JDK 11
+    - name: Set up JDK 8
       uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
@@ -21,7 +21,6 @@ jobs:
         java-version: '8'
     - name: Build
       run: mvn -B package --file pom.xml
-
 
 
   unit-tests:
@@ -42,61 +41,6 @@ jobs:
 
     - name: Run tests with Maven
       run: mvn test
-           echo "run tests diretorio = $(pwd)"
-
-    - name: Generate test report data
-      run: |
-        TEST_COUNT=$(grep -oE '<testsuites[^>]* tests="\K\d+' target/surefire-reports/TEST-*.xml)
-        TEST_PASSED=$(grep -oE '<testsuites[^>]* passed="\K\d+' target/surefire-reports/TEST-*.xml)
-        TEST_FAILED=$(grep -oE '<testsuites[^>]* failures="\K\d+' target/surefire-reports/TEST-*.xml)
-        TEST_SKIPPED=$(grep -oE '<testsuites[^>]* skipped="\K\d+' target/surefire-reports/TEST-*.xml)
-
-    - name: Generate chart
-      run: |
-        npm install chart.js
-        node -e "
-        const Chart = require('chart.js');
-        const data = {
-          labels: ['Passed', 'Failed', 'Skipped'],
-          datasets: [
-            {
-              label: 'Test Results',
-              data: [$TEST_PASSED, $TEST_FAILED, $TEST_SKIPPED],
-              backgroundColor: ['#28a745', '#dc3545', '#ffc107']
-            }
-          ]
-        };
-        const config = {
-          type: 'doughnut',
-          data,
-          options: {
-            plugins: {
-              legend: {
-                position: 'bottom'
-              }
-            }
-          }
-        };
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        new Chart(context, config);
-        console.log(canvas.toDataURL());
-        " > chart.txt
-
-    - name: Create chart issue comment
-      uses: actions/github-script@v4
-      with:
-        script: |
-          const { data: issue } = await github.issues.createComment({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            issue_number: context.issue.number,
-            body: `![Test Results](${fs.readFileSync('chart.txt', 'utf8')})`
-          });
-          console.log(`Created issue comment ${issue.html_url}`);
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 
 
   interface-tests:
