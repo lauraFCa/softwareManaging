@@ -58,7 +58,7 @@ jobs:
 
   interface-tests:
       runs-on: ubuntu-latest
-      needs: unit-tests
+      needs: deploy
       steps:
         - uses: actions/checkout@v2
         - name: Configurar ambiente
@@ -74,10 +74,10 @@ jobs:
   
   jmeter-tests:
     runs-on: ubuntu-latest
-    needs: interface-tests
+    needs: deploy
     steps:
       - name: Teste de Performance com JMeter
-        working-directory: manutencaoSoft
+        working-directory: tests
         run: |
           wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.1.tgz
           tar -xzf apache-jmeter-5.4.1.tgz
