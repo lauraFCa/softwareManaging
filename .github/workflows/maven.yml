@@ -21,11 +21,29 @@ jobs:
         java-version: '8'
     - name: Build
       run: mvn -B package --file pom.xml
+
     - name: FindBugs
       run: mvn spotbugs:check -Dspotbugs.failOnError=false -Dspotbugs.basedir=$GITHUB_WORKSPACE -Dspotbugs.includeFilterFile=$GITHUB_WORKSPACE/findbugs.xml
+    
     - name: Print FindBugs Results
       run: cat target/spotbugsXml.xml
       if: always()
+
+    - name: Generate FindBugs report
+      run: mvn spotbugs:spotbugs
+
+    - name: Convert FindBugs report to HTML
+      run: mvn spotbugs:report
+
+    - name: Download FindBugs HTML report
+      uses: actions/download-artifact@v2
+      with:
+        name: spotbugs
+        path: spotbugs-report
+
+    - name: View FindBugs HTML report
+      run: |
+        echo "Open file://$(pwd)/spotbugs-report/index.html in your browser"
 
 
   unit-tests:

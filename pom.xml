@@ -101,7 +101,32 @@
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>4.3.0</version>
-            </plugin>
+                <executions>
+                    <execution>
+                    <phase>verify</phase>
+                    <goals>
+                        <goal>spotbugs</goal>
+                    </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <plugins>
+                    <plugin>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs-maven-plugin</artifactId>
+                        <version>4.3.0</version>
+                        <configuration>
+                        <effort>Max</effort>
+                        <threshold>Low</threshold>
+                        <spotbugsXmlOutput>true</spotbugsXmlOutput>
+                        <xmlOutput>true</xmlOutput>
+                        <xmlOutputDirectory>${project.build.directory}/spotbugs-report</xmlOutputDirectory>
+                        </configuration>
+                    </plugin>
+                    </plugins>
+                </configuration>
+                </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
