@@ -81,7 +81,5 @@ jobs:
           sudo apt-get update
           sudo apt-get install default-jre -y
           sudo apt-get install jmeter -y
-        working-directory: tests
       - name: Run Jmeter Tests
         run: jmeter -n -t testplan.jmx -1 testreport.jtl
-        working-directory: tests
