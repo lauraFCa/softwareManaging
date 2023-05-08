@@ -42,6 +42,20 @@ jobs:
       run: mvn test
 
 
+  deploy:
+      runs-on: ubuntu-latest
+      needs: interface-tests
+      steps:
+      - name: Deploy to 000webhost
+        uses: SamKirkland/FTP-Deploy-Action@3.0.0
+        with:
+          server: files.000webhost.com
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /public_html/
+          local-file: manutencaoSoft/target/HotelLucena-1.0-SNAPSHOT.jar
+
+
   interface-tests:
       runs-on: ubuntu-latest
       needs: unit-tests
@@ -70,18 +84,4 @@ jobs:
           curl -LJO https://github.com/OWNER/REPO/actions/runs/12345678/artifacts/manifest.json
           BASE_URL=$(cat manifest.json | grep -Po '"baseUrl":.*?[^\\]",' | sed 's/"baseUrl":"\(.*\)",/\1/g')
           apache-jmeter-5.4.1/bin/jmeter -n -t testplan.jmx -JbaseUrl=${BASE_URL} -l results.jtl
-
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: interface-tests
-    steps:
-    - name: Deploy to 000webhost
-      uses: SamKirkland/FTP-Deploy-Action@3.0.0
-      with:
-        server: files.000webhost.com
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        server-dir: /public_html/
-        local-file: manutencaoSoft/target/HotelLucena-1.0-SNAPSHOT.jar
 
