@@ -21,6 +21,11 @@ jobs:
         java-version: '8'
     - name: Build
       run: mvn -B package --file pom.xml
+    - name: FindBugs
+      run: mvn spotbugs:check -Dspotbugs.failOnError=false -Dspotbugs.basedir=$GITHUB_WORKSPACE -Dspotbugs.includeFilterFile=$GITHUB_WORKSPACE/findbugs.xml
+    - name: Print FindBugs Results
+      run: cat target/spotbugsXml.xml
+      if: always()
 
 
   unit-tests:

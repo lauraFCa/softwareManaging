@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+  <!-- Verifica se há referências nulas -->
+  <Match>
+    <Bug code="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE" />
+  </Match>
+
+  <!-- Verifica se há variáveis não inicializadas -->
+  <Match>
+    <Bug code="UWF_UNWRITTEN_FIELD" />
+  </Match>
+
+  <!-- Verifica se há problemas comuns de segurança, como a utilização de chaves simétricas -->
+  <Match>
+    <Or>
+      <Bug code="SEC_BAD_RANDOM"/>
+      <Bug code="SEC_BAD_HASH"/>
+      <Bug code="SEC_SALT_WITHOUT_PEPPER"/>
+      <Bug code="SEC_BAD_KEY"/>
+    </Or>
+  </Match>
+
+  <!-- Verifica se há código morto ou não utilizado -->
+  <Match>
+    <Or>
+      <Bug code="UUF_UNUSED_FIELD"/>
+      <Bug code="UUF_UNUSED_PUBLIC_OR_PROTECTED_FIELD"/>
+      <Bug code="UUC_UNUSED_PARAMETER"/>
+      <Bug code="UUE_UNUSED_PRIVATE_FIELD"/>
+    </Or>
+  </Match>
+
+  <!-- Verifica se há problemas comuns de qualidade de código -->
+  <Match>
+    <Or>
+      <Bug pattern=".*EmptyStatement.*"/>
+      <Bug pattern=".*SystemExit.*"/>
+      <Bug pattern=".*UnusedVariable.*"/>
+      <Bug pattern=".*UnusedMethod.*"/>
+    </Or>
+  </Match>
+</FindBugsFilter>
