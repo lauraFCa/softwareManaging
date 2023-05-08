@@ -97,10 +97,20 @@
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>4.3.0</version>
+                <configuration>
+                    <spotbugsXmlOutput>true</spotbugsXmlOutput>
+                    <spotbugsXmlOutputDirectory>${project.build.directory}/spotbugs</spotbugsXmlOutputDirectory>
+                    <findbugsXmlOutput>true</findbugsXmlOutput>
+                    <findbugsXmlOutputDirectory>${project.build.directory}/findbugs</findbugsXmlOutputDirectory>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
+                    <failOnError>true</failOnError>
+                </configuration>
                 <executions>
                     <execution>
                     <phase>verify</phase>
@@ -109,23 +119,8 @@
                     </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <plugins>
-                    <plugin>
-                        <groupId>com.github.spotbugs</groupId>
-                        <artifactId>spotbugs-maven-plugin</artifactId>
-                        <version>4.3.0</version>
-                        <configuration>
-                        <effort>Max</effort>
-                        <threshold>Low</threshold>
-                        <spotbugsXmlOutput>true</spotbugsXmlOutput>
-                        <xmlOutput>true</xmlOutput>
-                        <xmlOutputDirectory>${project.build.directory}/spotbugs-report</xmlOutputDirectory>
-                        </configuration>
-                    </plugin>
-                    </plugins>
-                </configuration>
-                </plugin>
+            </plugin>
+
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
