@@ -23,7 +23,7 @@ jobs:
       run: mvn -B package --file pom.xml
 
     - name: FindBugs
-      run: mvn spotbugs:check -Dspotbugs.failOnError=false -Dspotbugs.basedir=$GITHUB_WORKSPACE -Dspotbugs.includeFilterFile=$GITHUB_WORKSPACE/findbugs.xml
+      run: mvn spotbugs:check -Dspotbugs.failOnError=false -Dspotbugs.includeFilterFile=findbugs.xml
     
     - name: Print FindBugs Results
       run: cat target/spotbugsXml.xml
