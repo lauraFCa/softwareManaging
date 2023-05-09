@@ -19,12 +19,13 @@ jobs:
         distribution: 'temurin'
         cache: maven
         java-version: '8'
+
     - name: Build
       run: mvn -B package --file pom.xml
 
     - name: FindBugs
       run: mvn spotbugs:check -Dspotbugs.failOnError=false -Dspotbugs.includeFilterFile=findbugs.xml
-    
+
     - name: Print FindBugs Results
       run: cat target/spotbugsXml.xml
       if: always()

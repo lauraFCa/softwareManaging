@@ -15,11 +15,14 @@
     </properties>
     
     <dependencies>
+        
         <dependency>
             <groupId>com.github.spotbugs</groupId>
-            <artifactId>spotbugs-maven-plugin</artifactId>
-            <version>4.3.0</version>
+            <artifactId>spotbugs</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
         </dependency>
+        
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.core</artifactId>
@@ -97,31 +100,6 @@
 
     <build>
         <plugins>
-
-            <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.3.0</version>
-                <configuration>
-                    <spotbugsXmlOutput>true</spotbugsXmlOutput>
-                    <spotbugsXmlOutputDirectory>${project.build.directory}/spotbugs</spotbugsXmlOutputDirectory>
-                    <findbugsXmlOutput>true</findbugsXmlOutput>
-                    <findbugsXmlOutputDirectory>${project.build.directory}/findbugs</findbugsXmlOutputDirectory>
-                    <effort>Max</effort>
-                    <threshold>Low</threshold>
-                    <failOnError>true</failOnError>
-                </configuration>
-                <executions>
-                    <execution>
-                    <phase>verify</phase>
-                    <goals>
-                        <goal>spotbugs</goal>
-                    </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -167,6 +145,27 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-maven-plugin</artifactId>
+            <version>3.0.1</version>
+            <executions>
+                <execution>
+                <id>spotbugs-check</id>
+                <goals>
+                    <goal>check</goal>
+                </goals>
+                <phase>verify</phase>
+                <configuration>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
+                    <includeFilterFile>findbugs.xml</includeFilterFile>
+                </configuration>
+                </execution>
+            </executions>
+            </plugin>
+
         </plugins>
     </build>
 
