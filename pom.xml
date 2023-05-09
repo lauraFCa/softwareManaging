@@ -17,8 +17,8 @@
     <dependencies>
         
         <dependency>
-            <groupId>com.github.spotbugs</groupId>
-            <artifactId>spotbugs</artifactId>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>findbugs</artifactId>
             <version>3.0.1</version>
             <scope>provided</scope>
         </dependency>
@@ -147,23 +147,16 @@
             </plugin>
 
             <plugin>
-            <groupId>com.github.spotbugs</groupId>
-            <artifactId>spotbugs-maven-plugin</artifactId>
-            <version>3.0.1</version>
-            <executions>
-                <execution>
-                <id>spotbugs-check</id>
-                <goals>
-                    <goal>check</goal>
-                </goals>
-                <phase>verify</phase>
-                <configuration>
-                    <effort>Max</effort>
-                    <threshold>Low</threshold>
-                    <includeFilterFile>findbugs.xml</includeFilterFile>
-                </configuration>
-                </execution>
-            </executions>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>3.0.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>spotbugs</artifactId>
+                        <version>3.0.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
         </plugins>
