@@ -113,3 +113,4 @@ jobs:
           cd bin
           ls .
           .\\jmeter -n -t testplan.jmx -l testreport.jtl
+        working-directory: apache-jmeter-5.4.3\\bin
