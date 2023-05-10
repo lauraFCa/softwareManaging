@@ -106,7 +106,7 @@ jobs:
           tar -xzf apache-jmeter-5.4.3.tgz
           rm apache-jmeter-5.4.3.tgz
           mkdir -p apache-jmeter-5.4.3/lib
-          wget lib/jmeter-plugins-cmn-jmeter-0.4.jar -P apache-jmeter-5.4.3/lib
+          cp lib/jmeter-plugins-cmn-jmeter-0.4.jar apache-jmeter-5.4.3/lib
       
       - name: Run Jmeter Tests
         run: |
