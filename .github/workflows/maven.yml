@@ -84,6 +84,7 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@3.0.0
         with:
           server: files.000webhost.com
+          ftp-server: files.000webhost.com
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /public_html/
