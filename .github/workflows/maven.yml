@@ -96,6 +96,7 @@ jobs:
     steps:
       - name: Install JMeter
         run: |
+          ls
           sudo apt-get update
           sudo apt-get install default-jre -y
           sudo apt-get install jmeter -y
