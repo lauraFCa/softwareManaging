@@ -92,17 +92,12 @@ jobs:
   
   jmeter-tests:
     runs-on: ubuntu-latest
-    needs: deploy
+    # needs: deploy
     steps:
       - name: Listar Arquivos e Pastas
         run: |
-          # Listar arquivos e pastas e redirecionar a saída para um arquivo
-          ls -R > lista_arquivos_pastas.txt
-
-      - name: Visualizar Arquivos e Pastas
-        run: |
-          # Exibir o conteúdo do arquivo com a lista de arquivos e pastas
-          cat lista_arquivos_pastas.txt
+          echo ls
+        
       - name: Install JMeter
         run: |
           sudo apt-get update
