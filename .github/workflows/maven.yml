@@ -108,4 +108,4 @@ jobs:
           export PATH=$PATH:$PWD/apache-jmeter-5.4.3/bin
       
       - name: Run Jmeter Tests
-        run: jmeter -n -t testplan.jmx -l testreport.jtl
+        run: /usr/bin/jmeter -n -t testplan.jmx -l testreport.jtl
