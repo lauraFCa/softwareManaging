@@ -1,3 +1,7 @@
+# Last Pipeline Run
+
+[![Build Tests Deploy](https://github.com/lauraFCa/manutencaoSoft/actions/workflows/maven.yml/badge.svg)](https://github.com/lauraFCa/manutencaoSoft/actions/workflows/maven.yml)
+
 # SonarQube Report
 
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena)  
