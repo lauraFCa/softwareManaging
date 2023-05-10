@@ -112,4 +112,4 @@ jobs:
           cd apache-jmeter-5.4.3
           cd bin
           ls .
-          .\jmeter -n -t testplan.jmx -l testreport.jtl
+          .\\jmeter -n -t testplan.jmx -l testreport.jtl
