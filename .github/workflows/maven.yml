@@ -53,6 +53,17 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=br.cesjf:HotelLucena
 
+  sonarcloud:
+    name: SonarCloud Scan
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   unit-tests:
     runs-on: ubuntu-latest
     needs: build
