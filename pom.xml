@@ -12,25 +12,12 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
+        <sonar.organization>colleegtests</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
-    
-    <repositories>
-        <repository>
-            <id>findbugs-repo</id>
-            <url>https://mvnrepository.com/artifact/com.google.code.findbugs</url>
-        </repository>
-    </repositories>
-
 
     <dependencies>
-        
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>findbugs</artifactId>
-            <version>3.0.1</version>
-            <scope>provided</scope>
-        </dependency>
-        
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.core</artifactId>
@@ -154,18 +141,13 @@
                 </executions>
             </plugin>
 
+        <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>3.0.1</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>spotbugs</artifactId>
-                        <version>3.0.1</version>
-                    </dependency>
-                </dependencies>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.8.0.2131</version>
             </plugin>
+        </plugins>
 
         </plugins>
     </build>
