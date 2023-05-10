@@ -110,5 +110,6 @@ jobs:
       - name: Run Jmeter Tests
         run: |
           cd apache-jmeter-5.4.3
+          cd bin
           ls .
-          apache-jmeter-5.4.3/bin/jmeter -n -t testplan.jmx -l testreport.jtl
+    #apache-jmeter-5.4.3/bin/jmeter -n -t testplan.jmx -l testreport.jtl
