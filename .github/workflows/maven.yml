@@ -105,7 +105,8 @@ jobs:
           wget https://mirror.navercorp.com/apache//jmeter/binaries/apache-jmeter-5.4.3.tgz
           tar -xzf apache-jmeter-5.4.3.tgz
           rm apache-jmeter-5.4.3.tgz
-          export PATH=$PATH:$PWD/apache-jmeter-5.4.3/bin
+          mkdir -p apache-jmeter-5.4.3/lib
+          wget lib/jmeter-plugins-cmn-jmeter-0.4.jar -P apache-jmeter-5.4.3/lib
       
       - name: Run Jmeter Tests
         run: |
