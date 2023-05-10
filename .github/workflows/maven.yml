@@ -65,15 +65,15 @@ jobs:
     - name: Run Unit Tests
       run: |
         mvn test
-        ls .
-        cd target
-        ls .
 
     - name: Publish Test Results
       uses: actions/upload-artifact@v2
       with:
         name: test-results
         path: target/surefire-reports
+    
+    - name: Display Test Results
+      run: cat target/surefire-reports/*.txt
 
 
   # deploy:
