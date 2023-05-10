@@ -95,7 +95,9 @@ jobs:
     # needs: deploy
     steps:
       - name: Listar Arquivos e Pastas
-        run: ls .
+        run: |
+          echo "Conteúdo do diretório:"
+          ls .
         
       - name: Install JMeter
         run: |
