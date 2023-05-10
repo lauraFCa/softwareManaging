@@ -109,5 +109,5 @@ jobs:
       
       - name: Run Jmeter Tests
         run: |
-        ls .
-        jmeter -n -t testplan.jmx -l testreport.jtl
+          ls .
+          jmeter -n -t testplan.jmx -l testreport.jtl
