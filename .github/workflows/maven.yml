@@ -53,9 +53,9 @@ jobs:
       - name: Gerar URL da badge
         run: |
           if [[ "${{ job.status }}" == "success" ]]; then
-            echo "BADGE_URL=https://img.shields.io/static/v1?label=Status&message=success&color=green" >> $GITHUB_ENV
+            echo "BADGE_URL=https://img.shields.io/static/v1?label=Build-and-Analyze&message=success&color=green" >> $GITHUB_ENV
           else
-            echo "BADGE_URL=https://img.shields.io/static/v1?label=Status&message=success&color=red" >> $GITHUB_ENV
+            echo "BADGE_URL=https://img.shields.io/static/v1?label=Build-and-Analyze&message=success&color=red" >> $GITHUB_ENV
           fi
         shell: bash
 
@@ -65,12 +65,13 @@ jobs:
           echo "CONTENT=$CONTENT" >> $GITHUB_ENV
 
 
-      - name: Atualizar README.md com a badge
+      - name: List Dir
         # run: |
         #   sed -i "5s | $CONTENT | [![Status do Job]($BADGE_URL)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
-        run: |
-          echo ls
-          sed -i '5s/.*/[![Status do Job]($BADGE_URL)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)/' readme.md
+        run: echo ls
+        
+      - name: Atualizar README.md com a badge
+        run: sed -i '5s~.*~[![Status do Job](\$BADGE_URL)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/\$PIPELINE_EXECUTION_ID)~' readme.md
 
 
 
