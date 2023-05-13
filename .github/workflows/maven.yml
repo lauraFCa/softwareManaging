@@ -153,8 +153,9 @@ jobs:
         git push -v
     
     - name: Delete Test Results Artifact
-      uses: actions/delete-artifact@v2
+      uses: actions/checkout@v2
       with:
+        uses: actions/delete-artifact@v2
         name: test-results
 
 
