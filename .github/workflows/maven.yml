@@ -122,12 +122,6 @@ jobs:
     
     - name: Display Test Results
       run: cat target/surefire-reports/*.txt    
-    
-    - name: Delete Test Results Artifact
-      uses: actions/delete-artifact@v2
-      with:
-        name: test-results
-    
 
     # GITHUB STUFF
     - name: Configurar usuário Git
@@ -165,6 +159,19 @@ jobs:
         git status
         git commit -v -m "Add badge to readme"
         git push -v
+    
+
+  delete-unit-artifact:
+    name: Delete Unit Tests Artifact
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+    - uses: actions/checkout@v2
+  
+    - name: Delete Test Results Artifact
+      uses: actions/delete-artifact@v2
+      with:
+        name: test-results
     
 
 
