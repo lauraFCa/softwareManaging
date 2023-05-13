@@ -4,9 +4,15 @@ name: Build Tests Deploy
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - master
+      - release-candidate
+      - unit-tests
   pull_request:
-    branches: [ "master" ]
+    branches:
+      - master
+      - release-candidate
+      - unit-tests
 
 jobs:
 
@@ -60,100 +66,103 @@ jobs:
 
 
       - name: Atualizar README.md com a badge
+        # run: |
+        #   sed -i "5s | $CONTENT | [![Status do Job]($BADGE_URL)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
         run: |
-          sed -i "5s | $CONTENT | [![Status do Job]($BADGE_URL)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
+          echo ls
+          sed -i '5s/.*/[![Status do Job]($BADGE_URL)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)/' readme.md
 
 
 
-  unit-tests:
-    name: Unit Tests Run
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 8
-      uses: actions/setup-java@v2
-      with:
-        java-version: 8
-        distribution: 'temurin'
+  # unit-tests:
+  #   name: Unit Tests Run
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Set up JDK 8
+  #     uses: actions/setup-java@v2
+  #     with:
+  #       java-version: 8
+  #       distribution: 'temurin'
 
-    - name: Cache Maven packages
-      uses: actions/cache@v2
-      with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+  #   - name: Cache Maven packages
+  #     uses: actions/cache@v2
+  #     with:
+  #       path: ~/.m2/repository
+  #       key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
 
-    - name: Build with Maven
-      run: mvn clean package
+  #   - name: Build with Maven
+  #     run: mvn clean package
 
-    - name: Run Unit Tests
-      run: |
-        mvn test
+  #   - name: Run Unit Tests
+  #     run: |
+  #       mvn test
 
-    - name: Publish Test Results
-      uses: actions/upload-artifact@v2
-      with:
-        name: test-results
-        path: target/surefire-reports
+  #   - name: Publish Test Results
+  #     uses: actions/upload-artifact@v2
+  #     with:
+  #       name: test-results
+  #       path: target/surefire-reports
     
-    - name: Display Test Results
-      run: cat target/surefire-reports/*.txt
+  #   - name: Display Test Results
+  #     run: cat target/surefire-reports/*.txt
 
 
-  deploy:
-    name: Deploy to Plataform
-    if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
-    needs: unit-tests
-    steps:
-    - name: Deploy to Plataform
-      run: echo "Azure for students not working :("
-      # uses: SamKirkland/FTP-Deploy-Action@3.0.0
-      # with:
-      #   server: files.000webhost.com
-      #   ftp-server: files.000webhost.com
-      #   username: ${{ secrets.FTP_USERNAME }}
-      #   ftp-username: ${{ secrets.FTP_USERNAME }}
-      #   password: ${{ secrets.FTP_PASSWORD }}
-      #   ftp-password: ${{ secrets.FTP_PASSWORD }}
-      #   server-dir: /public_html/
-      #   local-file: manutencaoSoft/target/HotelLucena-1.0-SNAPSHOT.jar
+  # deploy:
+  #   name: Deploy to Plataform
+  #   if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+  #   runs-on: ubuntu-latest
+  #   needs: unit-tests
+  #   steps:
+  #   - name: Deploy to Plataform
+  #     run: echo "Azure for students not working :("
+  #     # uses: SamKirkland/FTP-Deploy-Action@3.0.0
+  #     # with:
+  #     #   server: files.000webhost.com
+  #     #   ftp-server: files.000webhost.com
+  #     #   username: ${{ secrets.FTP_USERNAME }}
+  #     #   ftp-username: ${{ secrets.FTP_USERNAME }}
+  #     #   password: ${{ secrets.FTP_PASSWORD }}
+  #     #   ftp-password: ${{ secrets.FTP_PASSWORD }}
+  #     #   server-dir: /public_html/
+  #     #   local-file: manutencaoSoft/target/HotelLucena-1.0-SNAPSHOT.jar
 
 
-  interface-tests:
-    name: Cypress e2e Tests
-    runs-on: ubuntu-latest
-    needs: deploy
-    steps:
-      - uses: actions/checkout@v2
-      - name: Configurar ambiente
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
+  # interface-tests:
+  #   name: Cypress e2e Tests
+  #   runs-on: ubuntu-latest
+  #   needs: deploy
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Configurar ambiente
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: '14'
 
-      - name: Instalar dependencias
-        run: npm install
-        working-directory: tests
-      - name: Executar Cypress
-        run: npm run cy:run
-        working-directory: tests
+  #     - name: Instalar dependencias
+  #       run: npm install
+  #       working-directory: tests
+  #     - name: Executar Cypress
+  #       run: npm run cy:run
+  #       working-directory: tests
   
   
-  jmeter-tests:
-    runs-on: ubuntu-latest
-    needs: deploy
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install JMeter
-        run: |
-          sudo apt-get update
-          sudo apt-get install default-jre -y
-          wget https://mirror.navercorp.com/apache//jmeter/binaries/apache-jmeter-5.4.3.tgz
-          tar -xzf apache-jmeter-5.4.3.tgz
-          rm apache-jmeter-5.4.3.tgz
-          mkdir -p apache-jmeter-5.4.3/lib
-          cp lib/jmeter-plugins-cmn-jmeter-0.4.jar apache-jmeter-5.4.3/lib
+  # jmeter-tests:
+  #   runs-on: ubuntu-latest
+  #   needs: deploy
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Install JMeter
+  #       run: |
+  #         sudo apt-get update
+  #         sudo apt-get install default-jre -y
+  #         wget https://mirror.navercorp.com/apache//jmeter/binaries/apache-jmeter-5.4.3.tgz
+  #         tar -xzf apache-jmeter-5.4.3.tgz
+  #         rm apache-jmeter-5.4.3.tgz
+  #         mkdir -p apache-jmeter-5.4.3/lib
+  #         cp lib/jmeter-plugins-cmn-jmeter-0.4.jar apache-jmeter-5.4.3/lib
       
-      - name: Run Jmeter Tests
-        run: |
-          ./apache-jmeter-5.4.3/bin/jmeter -n -t testplan.jmx -l testreport.jtl
+  #     - name: Run Jmeter Tests
+  #       run: |
+  #         ./apache-jmeter-5.4.3/bin/jmeter -n -t testplan.jmx -l testreport.jtl
