@@ -47,9 +47,12 @@ jobs:
       - name: Gerar URL da badge
         run: |
           if [[ "${{ job.status }}" == "success" ]]; then
-            echo "BADGE_URL=https://img.shields.io/static/v1?label=Status&message=${{ job.status }}&color=green" >> $GITHUB_ENV
+            echo "BADGE_URL=https://img.shields.io/static/v1?label=Status&message=success&color=green" >> $GITHUB_ENV
           else
-            echo "BADGE_URL=https://img.shields.io/static/v1?label=Status&message=${{ job.status }}&color=red" >> $GITHUB_ENV
+            echo "BADGE_URL=https://img.shields.io/static/v1?label=Status&message=success&color=red" >> $GITHUB_ENV
+          fi
+        shell: bash
+
       
       - name: Atualizar README.md com a badge
         run: |
