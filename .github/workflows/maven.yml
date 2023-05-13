@@ -177,7 +177,7 @@ jobs:
 
     - uses: actions/checkout@v2
       with:
-        ref: $branch_name
+        ref: ${{ github.repository }}/$branch_name
 
     #region BADGE STUFF
     - name: Setar variável PIPELINE_EXECUTION_ID
