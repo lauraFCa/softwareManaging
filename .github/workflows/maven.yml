@@ -27,15 +27,6 @@ jobs:
       GIT_TOKEN: ${{ secrets.ACCESS_TOKEN }}
       
     steps:
-
-      - name: Configure Git
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git config --local credential.helper "store --file=.git/credentials"
-          echo "machine github.com login actions password $GIT_TOKEN" >> .git/credentials
-
-
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0 
@@ -44,6 +35,15 @@ jobs:
         with:
           java-version: 11
           distribution: 'zulu'
+
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git config --local credential.helper "store --file=.git/credentials"
+          echo "machine github.com login actions password $GIT_TOKEN" >> .git/credentials
+  
       
       # - name: Cache SonarCloud packages
       #   uses: actions/cache@v3
