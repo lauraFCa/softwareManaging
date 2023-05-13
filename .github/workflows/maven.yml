@@ -45,6 +45,7 @@ jobs:
         run: echo "PIPELINE_EXECUTION_ID=${{ github.run_id }}" >> $GITHUB_ENV
 
       - name: Gerar URL da badge
+        run: |
           if [[ "${{ job.status }}" == "success" ]]; then
             echo "BADGE_URL=https://img.shields.io/static/v1?label=Status&message=${{ job.status }}&color=green" >> $GITHUB_ENV
           else
