@@ -35,11 +35,13 @@ jobs:
           distribution: 'zulu'
 
 
-      - name: Configure Git user
+      - name: Configurar usuário Git
         run: |
-          git config --global user.name "Github Actions"
-          git config --global user.email ${{ secrets.USER_NAME }}
-          git config --global user.password ${{ secrets.USER_PASSWORD }}
+            git config --global user.name "GitHub Actions"
+            git config --global user.email "${{ secrets.USER_NAME }}"
+            git config --global credential.helper store
+            echo "https://github.com:${{ secrets.ACCESS_TOKEN }}@github.com" >> ~/.git-credentials
+        
 
       
       # - name: Cache SonarCloud packages
@@ -88,8 +90,9 @@ jobs:
       - name: Commit e push das alterações
         run: |
           git add .
-          git commit -m "Add badge to readme"
-          git push
+          git status
+          git commit -v -m "Add badge to readme"
+          git push -v
 
 
 
