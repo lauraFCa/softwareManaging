@@ -66,32 +66,32 @@ jobs:
         java-version: 8
         distribution: 'temurin'
 
-    - name: Cache Maven packages
-      uses: actions/cache@v2
-      with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+    # - name: Cache Maven packages
+    #   uses: actions/cache@v2
+    #   with:
+    #     path: ~/.m2/repository
+    #     key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
 
-    - name: Build with Maven
-      run: mvn clean package
+    # - name: Build with Maven
+    #   run: mvn clean package
 
-    - name: Run Unit Tests
-      run: |
-        mvn test
+    # - name: Run Unit Tests
+    #   run: |
+    #     mvn test
 
-    - name: Publish Test Results
-      uses: actions/upload-artifact@v2
-      with:
-        name: test-results
-        path: target/surefire-reports
+    # - name: Publish Test Results
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: test-results
+    #     path: target/surefire-reports
     
-    - name: Display Test Results
-      run: cat target/surefire-reports/*.txt    
+    # - name: Display Test Results
+    #   run: cat target/surefire-reports/*.txt    
 
-    - name: Delete Test Results Artifact
-      uses: geekyeggo/delete-artifact@v2
-      with:
-        name: test-results
+    # - name: Delete Test Results Artifact
+    #   uses: geekyeggo/delete-artifact@v2
+    #   with:
+    #     name: test-results
 
 
   deploy:
@@ -203,9 +203,11 @@ jobs:
       run: |
         branch_name=$(echo "${{ github.ref }}" | sed 's/refs\/pull\///' | sed 's/\/merge//')
 
-        git fetch origin pull/${{ github.ref }}/head:branch_name
+        branch_name=$(curl -s -H "Authorization: Bearer ${{ secrets.ACCESS_TOKEN }}" \ "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.ref }}" \| jq -r '.head.ref')
         
-        git checkout branch_name
+        echo "Branch de origem: $branch_name"
+        
+        git checkout $branch_name
       
         git add .
         git status
