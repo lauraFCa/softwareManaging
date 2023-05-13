@@ -173,10 +173,11 @@ jobs:
           | jq -r '.head.ref')
         echo "Branch de origem: $branch_name"
         echo "::set-output name=branch_name::$branch_name"
+        echo "branch_name=$branch_name" >> $GITHUB_ENV
 
     - uses: actions/checkout@v2
       with:
-        ref: ${{ github.repository }}/${{ steps.get-branch-name.outputs.branch_name }}"
+        ref: ${{ env.branch_name }}
 
     #region BADGE STUFF
     - name: Setar variável PIPELINE_EXECUTION_ID
