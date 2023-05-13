@@ -53,10 +53,9 @@ jobs:
           fi
         shell: bash
 
-      
       - name: Atualizar README.md com a badge
         run: |
-          echo "[![Status do Job](${{ env.BADGE_URL }})](https://github.com/lauraFCa/manutencaoSoft/actions/runs/${{ env.PIPELINE_EXECUTION_ID }})" >> README.md
+          sed -i '5s/.*/[![Status do Job](${{ env.BADGE_URL }})](https://github.com/lauraFCa/manutencaoSoft/actions/runs/${{ env.PIPELINE_EXECUTION_ID }})/' readme.md
 
 
 
