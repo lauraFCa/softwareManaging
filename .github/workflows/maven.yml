@@ -222,7 +222,7 @@ jobs:
         git add .
         git status
         git commit -v -m "Add badges to readme"
-        git push -v
+        git push -v origin HEAD:$branch_name
 
     #endregion
 
