@@ -34,35 +34,23 @@ jobs:
           java-version: 11
           distribution: 'zulu'
       
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-      - name: Cache Maven packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
-      - name: Build and analyze
-        env:
-          GITHUB_TOKEN: ${{ secrets.GIHUB_TOKEN }} 
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=br.cesjf:HotelLucena
-        
-      - name: Gerar URL da badge BUILD
-        run: |
-          if [[ "${{ job.status }}" == "success" ]]; then
-            echo "BADGE_URL=https://img.shields.io/static/v1?label=Build-and-Analyze\&message=success\&color=green" >> $GITHUB_ENV
-          else
-            echo "BADGE_URL=https://img.shields.io/static/v1?label=Build-and-Analyze\&message=success\&color=red" >> $GITHUB_ENV
-          fi
-        shell: bash
-
-      - name: Set badge url for Build
-        run: echo "BADGE_URL_Build=$BADGE_URL" >> $GITHUB_ENV
+      # - name: Cache SonarCloud packages
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ~/.sonar/cache
+      #     key: ${{ runner.os }}-sonar
+      #     restore-keys: ${{ runner.os }}-sonar
+      # - name: Cache Maven packages
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ~/.m2
+      #     key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+      #     restore-keys: ${{ runner.os }}-m2
+      # - name: Build and analyze
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GIHUB_TOKEN }} 
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #   run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=br.cesjf:HotelLucena
 
 
   unit-tests:
@@ -214,10 +202,10 @@ jobs:
     - name: Commit e push
       run: |
         branch_name=$(echo "${{ github.ref }}" | sed 's/refs\/pull\///' | sed 's/\/merge//')
-        echo "Branch de origem: $branch_name"
+
+        git fetch origin pull/${{ github.ref }}/head:branch_name
         
-        git fetch origin "+refs/pull/$branch_name/merge:"
-        git checkout "FETCH_HEAD"
+        git checkout branch_name
       
         git add .
         git status
