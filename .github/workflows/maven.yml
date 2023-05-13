@@ -33,16 +33,6 @@ jobs:
         with:
           java-version: 11
           distribution: 'zulu'
-
-
-      - name: Configurar usuário Git
-        run: |
-            git config --global user.name "GitHub Actions"
-            git config --global user.email "${{ secrets.USER_NAME }}"
-            git config --global credential.helper store
-            echo "https://github.com:${{ secrets.ACCESS_TOKEN }}@github.com" >> ~/.git-credentials
-        
-
       
       # - name: Cache SonarCloud packages
       #   uses: actions/cache@v3
@@ -123,8 +113,17 @@ jobs:
         path: target/surefire-reports
     
     - name: Display Test Results
-      run: cat target/surefire-reports/*.txt
+      run: cat target/surefire-reports/*.txt    
     
+    # GITHUB STUFF
+    - name: Configurar usuário Git
+      run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "${{ secrets.USER_NAME }}"
+          git config --global credential.helper store
+          echo "https://github.com:${{ secrets.ACCESS_TOKEN }}@github.com" >> ~/.git-credentials
+
+
     - name: Gerar URL da badge
       run: |
         if [[ "${{ job.status }}" == "success" ]]; then
@@ -152,6 +151,11 @@ jobs:
         git status
         git commit -v -m "Add badge to readme"
         git push -v
+    
+    - name: Delete Test Results Artifact
+      uses: actions/delete-artifact@v2
+      with:
+        name: test-results
 
 
   # deploy:
