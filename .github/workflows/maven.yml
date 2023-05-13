@@ -157,7 +157,7 @@ jobs:
 
 
   git-commit:
-    uses: ./.github/workflows/git-commit.yml@master
+    uses: ./.github/workflows/git-commit.yml
 
 
   # deploy:
