@@ -34,23 +34,23 @@ jobs:
           java-version: 11
           distribution: 'zulu'
       
-      # - name: Cache SonarCloud packages
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ~/.sonar/cache
-      #     key: ${{ runner.os }}-sonar
-      #     restore-keys: ${{ runner.os }}-sonar
-      # - name: Cache Maven packages
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ~/.m2
-      #     key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-      #     restore-keys: ${{ runner.os }}-m2
-      # - name: Build and analyze
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GIHUB_TOKEN }} 
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      #   run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=br.cesjf:HotelLucena
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIHUB_TOKEN }} 
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=br.cesjf:HotelLucena
         
       - name: Gerar URL da badge BUILD
         run: |
@@ -165,10 +165,10 @@ jobs:
           ./apache-jmeter-5.4.3/bin/jmeter -n -t testplan.jmx -l testreport.jtl
 
 
-  create-badges:
+  create-badges-build-unit:
     name: Create Status Badges
     runs-on: ubuntu-latest
-    needs: [build, unit-tests, deploy, interface-tests, jmeter-tests]
+    needs: [build, unit-tests]
     steps:
     - uses: actions/checkout@v2
 
@@ -194,48 +194,11 @@ jobs:
         fi
       shell: bash
 
-    - name: Gerar URL da badge DEPLOY
-      run: |
-        if [[ "${{ needs.deploy.result }}" == "success" ]]; then
-          echo "BADGE_URL_Deploy=https://img.shields.io/static/v1?label=Deploy\&message=success\&color=green" >> $GITHUB_ENV
-        elif [[ "${{ needs.deploy.result }}" == "failure" ]]; then
-          echo "BADGE_URL_Deploy=https://img.shields.io/static/v1?label=Deploy\&message=failure\&color=red" >> $GITHUB_ENV
-        else
-          echo "BADGE_URL_Deploy=https://img.shields.io/static/v1?label=Cypress-Tests\&message=not-run\&color=%23808080" >> $GITHUB_ENV
-        fi
-      shell: bash
-
-    - name: Gerar URL da badge CYPRESS
-      run: |
-        if [[ "${{ needs.interface-tests.result }}" == "success" ]]; then
-          echo "BADGE_URL_Cypress=https://img.shields.io/static/v1?label=Cypress-Tests\&message=success\&color=green" >> $GITHUB_ENV
-        elif [[ "${{ needs.interface-tests.result }}" == "failure" ]]; then
-          echo "BADGE_URL_Cypress=https://img.shields.io/static/v1?label=Cypress-Tests\&message=failure\&color=red" >> $GITHUB_ENV
-        else
-          echo "BADGE_URL_Cypress=https://img.shields.io/static/v1?label=Cypress-Tests\&message=not-run\&color=%23808080" >> $GITHUB_ENV
-        fi
-      shell: bash
-  
-    - name: Gerar URL da badge JMETER
-      run: |
-        if [[ "${{ needs.jmeter-tests.results }}" == "success" ]]; then
-          echo "BADGE_URL_Jmeter=https://img.shields.io/static/v1?label=Jmeter-Tests\&message=success\&color=green" >> $GITHUB_ENV
-        elif [[ "${{ needs.jmeter-tests.result }}" == "failure" ]]; then
-          echo "BADGE_URL_Jmeter=https://img.shields.io/static/v1?label=Jmeter-Tests\&message=failure\&color=red" >> $GITHUB_ENV
-        else
-          echo "BADGE_URL_Jmeter=https://img.shields.io/static/v1?label=Jmeter-Tests\&message=not-run\&color=%23808080" >> $GITHUB_ENV
-        fi
-      shell: bash
-
-
     - name: Set Badges on Readme
       run: |
         sed -i "5s~.*~[![Status do Job]($BADGE_URL_Build)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
         sed -i "7s~.*~[![Status do Job]($BADGE_URL_Unit)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
-        sed -i "9s~.*~[![Status do Job]($BADGE_URL_Deploy)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
-        sed -i "11s~.*~[![Status do Job]($BADGE_URL_Cypress)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
-        sed -i "13s~.*~[![Status do Job]($BADGE_URL_Jmeter)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
-    
+        
     #endregion
 
     #region GIT STUFF
@@ -255,3 +218,75 @@ jobs:
         git push -v
 
     #endregion
+
+  create-badges-deploy-tests:
+      name: Create Status Badges
+      runs-on: ubuntu-latest
+      needs: [deploy, interface-tests, jmeter-tests]
+      steps:
+      - uses: actions/checkout@v2
+  
+      #region BADGE STUFF
+      - name: Setar variável PIPELINE_EXECUTION_ID
+        run: echo "PIPELINE_EXECUTION_ID=${{ github.run_id }}" >> $GITHUB_ENV
+  
+      - name: Gerar URL da badge DEPLOY
+        run: |
+          if [[ "${{ needs.deploy.result }}" == "success" ]]; then
+            echo "BADGE_URL_Deploy=https://img.shields.io/static/v1?label=Deploy\&message=success\&color=green" >> $GITHUB_ENV
+          elif [[ "${{ needs.deploy.result }}" == "failure" ]]; then
+            echo "BADGE_URL_Deploy=https://img.shields.io/static/v1?label=Deploy\&message=failure\&color=red" >> $GITHUB_ENV
+          else
+            echo "BADGE_URL_Deploy=https://img.shields.io/static/v1?label=Cypress-Tests\&message=not-run\&color=%23808080" >> $GITHUB_ENV
+          fi
+        shell: bash
+  
+      - name: Gerar URL da badge CYPRESS
+        run: |
+          if [[ "${{ needs.interface-tests.result }}" == "success" ]]; then
+            echo "BADGE_URL_Cypress=https://img.shields.io/static/v1?label=Cypress-Tests\&message=success\&color=green" >> $GITHUB_ENV
+          elif [[ "${{ needs.interface-tests.result }}" == "failure" ]]; then
+            echo "BADGE_URL_Cypress=https://img.shields.io/static/v1?label=Cypress-Tests\&message=failure\&color=red" >> $GITHUB_ENV
+          else
+            echo "BADGE_URL_Cypress=https://img.shields.io/static/v1?label=Cypress-Tests\&message=not-run\&color=%23808080" >> $GITHUB_ENV
+          fi
+        shell: bash
+    
+      - name: Gerar URL da badge JMETER
+        run: |
+          if [[ "${{ needs.jmeter-tests.results }}" == "success" ]]; then
+            echo "BADGE_URL_Jmeter=https://img.shields.io/static/v1?label=Jmeter-Tests\&message=success\&color=green" >> $GITHUB_ENV
+          elif [[ "${{ needs.jmeter-tests.result }}" == "failure" ]]; then
+            echo "BADGE_URL_Jmeter=https://img.shields.io/static/v1?label=Jmeter-Tests\&message=failure\&color=red" >> $GITHUB_ENV
+          else
+            echo "BADGE_URL_Jmeter=https://img.shields.io/static/v1?label=Jmeter-Tests\&message=not-run\&color=%23808080" >> $GITHUB_ENV
+          fi
+        shell: bash
+  
+  
+      - name: Set Badges on Readme
+        run: |
+          sed -i "9s~.*~[![Status do Job]($BADGE_URL_Deploy)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
+          sed -i "11s~.*~[![Status do Job]($BADGE_URL_Cypress)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
+          sed -i "13s~.*~[![Status do Job]($BADGE_URL_Jmeter)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
+      
+      #endregion
+  
+      #region GIT STUFF
+  
+      - name: Configurar usuario Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "${{ secrets.USER_NAME }}"
+          git config --global credential.helper store
+          echo "https://github.com:${{ secrets.ACCESS_TOKEN }}@github.com" >> ~/.git-credentials
+  
+      - name: Commit e push
+        run: |
+          git add .
+          git status
+          git commit -v -m "Add badges to readme"
+          git push -v
+  
+      #endregion
+  
