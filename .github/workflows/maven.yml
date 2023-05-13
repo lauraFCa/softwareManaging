@@ -157,7 +157,9 @@ jobs:
 
 
   git-commit:
-    uses: ./.github/workflows/git-commit.yml
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/workflows/git-commit.yml
 
 
   # deploy:
