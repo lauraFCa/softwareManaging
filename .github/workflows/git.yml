@@ -12,7 +12,9 @@ jobs:
         
         steps:
           - name: Checkout do repositório
-            uses: actions/checkout@v2
+            uses: actions/checkout@v2 
+            with: 
+              repository: ${{ github.repository }}
           
           - name: Configurar usuário Git
             run: |
@@ -27,3 +29,5 @@ jobs:
               git status
               git commit -v -m "Add badge to readme"
               git push -v
+
+          

@@ -117,7 +117,7 @@ jobs:
     - name: Display Test Results
       run: cat target/surefire-reports/*.txt    
 
-    # BADGE STUFF
+    #region BADGE STUFF
     - name: Setar variável PIPELINE_EXECUTION_ID
       run: echo "PIPELINE_EXECUTION_ID=${{ github.run_id }}" >> $GITHUB_ENV
 
@@ -150,6 +150,7 @@ jobs:
     - name: Executar job - Git
       uses: ./git.yml
     
+    #endregion
 
   delete-unit-artifact:
     name: Delete Unit Tests Artifact
@@ -159,7 +160,7 @@ jobs:
     - uses: actions/checkout@v2
   
     - name: Delete Test Results Artifact
-      uses: actions/delete-artifact@v2
+      uses: geekyeggo/delete-artifact@v2
       with:
         name: test-results
     
