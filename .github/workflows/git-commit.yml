@@ -13,8 +13,6 @@ jobs:
         steps:
           - name: Checkout do repositório
             uses: actions/checkout@v2 
-            with: 
-              repository: ${{ github.repository }}
           
           - name: Configurar usuário Git
             run: |
