@@ -53,9 +53,16 @@ jobs:
           fi
         shell: bash
 
+      - name: Obter conteúdo da linha 5
+        run: |
+          CONTENT=$(sed -n '5p' readme.md)
+          echo "CONTENT=$CONTENT" >> $GITHUB_ENV
+
+
       - name: Atualizar README.md com a badge
         run: |
-          sed -i '5s~.*~[![Status do Job]($BADGE_URL)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~' readme.md
+          sed -i "5s~$CONTENT~[![Status do Job]($BADGE_URL)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
+
 
 
   unit-tests:
