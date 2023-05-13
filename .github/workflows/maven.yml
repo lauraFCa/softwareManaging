@@ -121,9 +121,6 @@ jobs:
     - name: Setar variável PIPELINE_EXECUTION_ID
       run: echo "PIPELINE_EXECUTION_ID=${{ github.run_id }}" >> $GITHUB_ENV
 
-    - name: Get previous job status
-      run: echo "::set-output name=status::${{ needs.build.result }}"
-
     - name: Gerar URL da badge BUILD
       run: |
         if [[ "${{ needs.build.result }}" == "success" ]]; then
@@ -150,20 +147,10 @@ jobs:
       run: |
         sed -i "7s~.*~[![Status do Job]($BADGE_URL_Unit)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
 
-    # GITHUB STUFF
-    - name: Configurar usuário Git
-      run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "${{ secrets.USER_NAME }}"
-        git config --global credential.helper store
-        echo "https://github.com:${{ secrets.ACCESS_TOKEN }}@github.com" >> ~/.git-credentials
-
-    - name: Commit e push das alterações
-      run: |
-        git add .
-        git status
-        git commit -v -m "Add badge to readme"
-        git push -v
+    - name: Executar job - Git
+      uses: ./git.yml
+      with:
+        on: ${{ toJson(on) }}
     
 
   delete-unit-artifact:
