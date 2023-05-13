@@ -152,11 +152,12 @@ jobs:
     - name: Run - Badge Unit Tests
       run: |
         sed -i "7s~.*~[![Status do Job]($BADGE_URL_Unit)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
-
-    - name: Executar job - Git
-      uses: ./.github/workflows/git-commit.yml
     
     #endregion
+
+
+  git-commit:
+    uses: ./.github/workflows/git-commit.yml
 
 
   # deploy:
