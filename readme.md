@@ -2,7 +2,7 @@
 
 [![Build Tests Deploy](https://github.com/lauraFCa/manutencaoSoft/actions/workflows/maven.yml/badge.svg)](https://github.com/lauraFCa/manutencaoSoft/actions/workflows/maven.yml)
 
-conteudo
+[![Status do Job](https://img.shields.io/static/v1?label=Build-and-Analyzeconteudomessage=successconteudocolor=green)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/4968269441)
 
 # SonarQube Report
 
