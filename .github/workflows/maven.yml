@@ -52,7 +52,7 @@ jobs:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       #   run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=br.cesjf:HotelLucena
         
-      - name: Gerar URL da badge
+      - name: Gerar URL da badge BUILD
         run: |
           if [[ "${{ job.status }}" == "success" ]]; then
             echo "BADGE_URL=https://img.shields.io/static/v1?label=Build-and-Analyze\&message=success\&color=green" >> $GITHUB_ENV
@@ -89,12 +89,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Setar variável PIPELINE_EXECUTION_ID
-      run: echo "PIPELINE_EXECUTION_ID=${{ github.run_id }}" >> $GITHUB_ENV
-
-    - name: Use Variable Build Badge URL
-      run: echo $BADGE_URL_Build
-
     - name: Set up JDK 8
       uses: actions/setup-java@v2
       with:
@@ -123,15 +117,23 @@ jobs:
     - name: Display Test Results
       run: cat target/surefire-reports/*.txt    
 
-    # GITHUB STUFF
-    - name: Configurar usuário Git
-      run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "${{ secrets.USER_NAME }}"
-          git config --global credential.helper store
-          echo "https://github.com:${{ secrets.ACCESS_TOKEN }}@github.com" >> ~/.git-credentials
+    # BADGE STUFF
+    - name: Setar variável PIPELINE_EXECUTION_ID
+      run: echo "PIPELINE_EXECUTION_ID=${{ github.run_id }}" >> $GITHUB_ENV
 
-    - name: Gerar URL da badge
+    - name: Get previous job status
+      run: echo "::set-output name=status::${{ needs.build.result }}"
+
+    - name: Gerar URL da badge BUILD
+      run: |
+        if [[ "${{ needs.build.result }}" == "success" ]]; then
+          echo "BADGE_URL_Build=https://img.shields.io/static/v1?label=Build-and-Analyze\&message=success\&color=green" >> $GITHUB_ENV
+        else
+          echo "BADGE_URL_Build=https://img.shields.io/static/v1?label=Build-and-Analyze\&message=success\&color=red" >> $GITHUB_ENV
+        fi
+      shell: bash
+
+    - name: Gerar URL da badge UNIT
       run: |
         if [[ "${{ job.status }}" == "success" ]]; then
           echo "BADGE_URL_Unit=https://img.shields.io/static/v1?label=Unit-Tests\&message=success\&color=green" >> $GITHUB_ENV
@@ -140,18 +142,21 @@ jobs:
         fi
       shell: bash
 
-    - name: Comando - Atualizar README.md com a badge
-      run: |
-        echo sed -i "7s~.*~[![Status do Job]($BADGE_URL_Unit)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
-    
     - name: Run - Badge Build and Analyse
       run: |
         sed -i "5s~.*~[![Status do Job]($BADGE_URL_Build)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
-      shell: /usr/bin/bash -e {0}
 
     - name: Run - Badge Unit Tests
       run: |
         sed -i "7s~.*~[![Status do Job]($BADGE_URL_Unit)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
+
+    # GITHUB STUFF
+    - name: Configurar usuário Git
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "${{ secrets.USER_NAME }}"
+        git config --global credential.helper store
+        echo "https://github.com:${{ secrets.ACCESS_TOKEN }}@github.com" >> ~/.git-credentials
 
     - name: Commit e push das alterações
       run: |
