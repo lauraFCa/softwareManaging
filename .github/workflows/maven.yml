@@ -199,14 +199,19 @@ jobs:
         git config --global credential.helper store
         echo "https://github.com:${{ secrets.ACCESS_TOKEN }}@github.com" >> ~/.git-credentials
 
+    - name: Instalar jq
+      uses: stedolan/jq@v1
+
+    - name: Obter branch de origem
+      run: |
+        pr_number=${{ github.event.pull_request.number }}
+        branch_name=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          "https://api.github.com/repos/${{ github.repository }}/pulls/${pr_number}" \
+          | jq -r '.head.ref')
+        echo "Branch de origem: $branch_name"
+
     - name: Commit e push
       run: |
-        branch_name=$(echo "${{ github.ref }}" | sed 's/refs\/pull\///' | sed 's/\/merge//')
-
-        branch_name=$(curl -s -H "Authorization: Bearer ${{ secrets.ACCESS_TOKEN }}" \ "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.ref }}" \| jq -r '.head.ref')
-        
-        echo "Branch de origem: $branch_name"
-        
         git checkout $branch_name
       
         git add .
