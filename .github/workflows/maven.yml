@@ -52,9 +52,6 @@ jobs:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       #   run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=br.cesjf:HotelLucena
         
-      - name: Setar variável PIPELINE_EXECUTION_ID
-        run: echo "PIPELINE_EXECUTION_ID=${{ github.run_id }}" >> $GITHUB_ENV
-
       - name: Gerar URL da badge
         run: |
           if [[ "${{ job.status }}" == "success" ]]; then
@@ -65,7 +62,7 @@ jobs:
         shell: bash
 
       - name: Set badge url for Build
-        run: echo "BADGE_URL_Build=BADGE_URL_Build" >> $GITHUB_ENV
+        run: echo "BADGE_URL_Build=$BADGE_URL_Build" >> $GITHUB_ENV
 
       # - name: Comando - Atualizar README.md com a badge
       #   run: |
@@ -90,8 +87,8 @@ jobs:
     needs: build
     steps:
 
-    - name: Use Variable RUN ID
-      run: echo $PIPELINE_EXECUTION_ID
+    - name: Setar variável PIPELINE_EXECUTION_ID
+      run: echo "PIPELINE_EXECUTION_ID=${{ github.run_id }}" >> $GITHUB_ENV
 
     - name: Use Variable Build Badge URL
       run: echo $BADGE_URL_Build
@@ -125,6 +122,12 @@ jobs:
     - name: Display Test Results
       run: cat target/surefire-reports/*.txt    
     
+    - name: Delete Test Results Artifact
+      uses: actions/checkout@v2
+      with:
+        uses: actions/delete-artifact@v2
+        name: test-results
+
     # GITHUB STUFF
     - name: Configurar usuário Git
       run: |
@@ -161,11 +164,6 @@ jobs:
         git commit -v -m "Add badge to readme"
         git push -v
     
-    - name: Delete Test Results Artifact
-      uses: actions/checkout@v2
-      with:
-        uses: actions/delete-artifact@v2
-        name: test-results
 
 
   # deploy:
