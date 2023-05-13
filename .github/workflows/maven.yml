@@ -149,8 +149,6 @@ jobs:
 
     - name: Executar job - Git
       uses: ./git.yml
-      with:
-        on: ${{ toJson(on) }}
     
 
   delete-unit-artifact:

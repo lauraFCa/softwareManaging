@@ -2,7 +2,21 @@
 
 name: Github Settings
 
-on: ${{ fromJson(on) }}
+on:
+  push:
+    branches:
+      - master
+      - release-candidate
+      - unit-tests
+    paths-ignore:
+      - '**/readme.md'
+  pull_request:
+    branches:
+      - master
+      - release-candidate
+      - unit-tests
+    paths-ignore:
+      - '**/readme.md'
 
 jobs:
     git-set-commit:
