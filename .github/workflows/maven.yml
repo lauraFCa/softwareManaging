@@ -42,8 +42,9 @@ jobs:
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           git config --local credential.helper "store --file=.git/credentials"
-          echo "machine github.com login actions password $GIT_TOKEN" >> .git/credentials
-  
+          echo "https://github.com:${{ secrets.GIT_TOKEN }}@github.com" >> .git/credentials
+
+
       
       # - name: Cache SonarCloud packages
       #   uses: actions/cache@v3
