@@ -200,7 +200,10 @@ jobs:
         echo "https://github.com:${{ secrets.ACCESS_TOKEN }}@github.com" >> ~/.git-credentials
 
     - name: Instalar jq
-      uses: stedolan/jq@v1
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y jq
+      
 
     - name: Obter branch de origem
       run: |
@@ -208,6 +211,8 @@ jobs:
         branch_name=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
           "https://api.github.com/repos/${{ github.repository }}/pulls/${pr_number}" \
           | jq -r '.head.ref')
+        echo ${{ github.event.pull_request.number }}
+        echo ${{ github.repository }}
         echo "Branch de origem: $branch_name"
 
     - name: Commit e push
