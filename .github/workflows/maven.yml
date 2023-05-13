@@ -170,10 +170,8 @@ jobs:
         branch_name=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
           "https://api.github.com/repos/${{ github.repository }}/pulls/${pr_number}" \
           | jq -r '.head.ref')
-        echo ${{ github.event.pull_request.number }}
-        echo ${{ github.repository }}
         echo "Branch de origem: $branch_name"
-        echo "git push -v origin HEAD:$branch_name"
+        echo "::set-output name=branch_name::$branch_name"
 
     - uses: actions/checkout@v2
       with:
