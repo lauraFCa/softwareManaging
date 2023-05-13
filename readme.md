@@ -2,9 +2,9 @@
 
 [![Build Tests Deploy](https://github.com/lauraFCa/manutencaoSoft/actions/workflows/maven.yml/badge.svg)](https://github.com/lauraFCa/manutencaoSoft/actions/workflows/maven.yml)
 
-[![Status do Job]()](https://github.com/lauraFCa/manutencaoSoft/actions/runs/4968469291)
+[![Status do Job](https://img.shields.io/static/v1?label=Build-and-Analyze&message=success&color=green)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/4968506052)
 
-[![Status do Job](https://img.shields.io/static/v1?label=Unit-Tests&message=success&color=green)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/4968469291)
+[![Status do Job](https://img.shields.io/static/v1?label=Unit-Tests&message=success&color=green)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/4968506052)
 
 deploy
 
