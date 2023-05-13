@@ -6,15 +6,16 @@ on:
   workflow_dispatch:
 
 jobs:
-    git-set-commit:
+    git-commit:
         name: Git Settings and Commit
         runs-on: ubuntu-latest
         
         steps:
-          - name: Checkout do repositório
-            uses: actions/checkout@v2 
+          - uses: actions/checkout@v3
+            with:
+              fetch-depth: 0 
           
-          - name: Configurar usuário Git
+          - name: Configurar usuario Git
             run: |
               git config --global user.name "GitHub Actions"
               git config --global user.email "${{ secrets.USER_NAME }}"
