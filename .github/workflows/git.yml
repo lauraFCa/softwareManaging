@@ -18,6 +18,7 @@ jobs:
           
           - name: Configurar usuário Git
             run: |
+              echo ${{ github.repository }}
               git config --global user.name "GitHub Actions"
               git config --global user.email "${{ secrets.USER_NAME }}"
               git config --global credential.helper store
@@ -29,5 +30,3 @@ jobs:
               git status
               git commit -v -m "Add badge to readme"
               git push -v
-
-          
