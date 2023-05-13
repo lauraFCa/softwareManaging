@@ -68,9 +68,9 @@ jobs:
       - name: Gerar URL da badge
         run: |
           if [[ "${{ job.status }}" == "success" ]]; then
-            echo "BADGE_URL=https://img.shields.io/static/v1?label=Build-and-Analyze&message=success&color=green" >> $GITHUB_ENV
+            echo "BADGE_URL=https://img.shields.io/static/v1?label=Build-and-Analyze\&message=success\&color=green" >> $GITHUB_ENV
           else
-            echo "BADGE_URL=https://img.shields.io/static/v1?label=Build-and-Analyze&message=success&color=red" >> $GITHUB_ENV
+            echo "BADGE_URL=https://img.shields.io/static/v1?label=Build-and-Analyze\&message=success\&color=red" >> $GITHUB_ENV
           fi
         shell: bash
 
