@@ -200,11 +200,20 @@ jobs:
         fi
       shell: bash
 
+    - name: Set Jobs to Not-Run
+      run: |
+        echo "BADGE_URL_Deploy=https://img.shields.io/static/v1?label=Deploy\&message=not-run\&color=%23808080" >> $GITHUB_ENV
+        echo "BADGE_URL_Cypress=https://img.shields.io/static/v1?label=Cypress-Tests\&message=not-run\&color=%23808080" >> $GITHUB_ENV
+        echo "BADGE_URL_Jmeter=https://img.shields.io/static/v1?label=Jmeter-Tests\&message=not-run\&color=%23808080" >> $GITHUB_ENV
+
     - name: Set Badges on Readme
       run: |
         sed -i "5s~.*~[![Status do Job]($BADGE_URL_Build)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
         sed -i "7s~.*~[![Status do Job]($BADGE_URL_Unit)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
-        
+        sed -i "9s~.*~[![Status do Job]($BADGE_URL_Deploy)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
+        sed -i "11s~.*~[![Status do Job]($BADGE_URL_Cypress)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
+        sed -i "13s~.*~[![Status do Job]($BADGE_URL_Jmeter)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
+    
     #endregion
 
     #region GIT STUFF
@@ -291,7 +300,6 @@ jobs:
       - name: Set Badges on Readme
         run: |
           sed -i "5s~.*~[![Status do Job]($BADGE_URL_Build)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
-          sed -i "7s~.*~[![Status do Job]($BADGE_URL_Unit)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
           sed -i "7s~.*~[![Status do Job]($BADGE_URL_Unit)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
           sed -i "9s~.*~[![Status do Job]($BADGE_URL_Deploy)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
           sed -i "11s~.*~[![Status do Job]($BADGE_URL_Cypress)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
