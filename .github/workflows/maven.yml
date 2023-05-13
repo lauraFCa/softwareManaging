@@ -8,11 +8,15 @@ on:
       - master
       - release-candidate
       - unit-tests
+    paths-ignore:
+      - '**/readme.md'
   pull_request:
     branches:
       - master
       - release-candidate
       - unit-tests
+    paths-ignore:
+      - '**/readme.md'
 
 jobs:
 
@@ -72,6 +76,13 @@ jobs:
         run: |
           sed -i "5s~$CONTENT~[![Status do Job]($BADGE_URL)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
 
+      - name: Commit e push das alterações
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add .
+          git commit -m "Add badge to readme"
+          git push
 
 
 
