@@ -65,14 +65,20 @@ jobs:
           echo "CONTENT=$CONTENT" >> $GITHUB_ENV
 
 
-      - name: List Dir
+      - name: Gerar comando
         # run: |
         #   sed -i "5s | $CONTENT | [![Status do Job]($BADGE_URL)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
         run: |
-          ls -R
+          ls -R -type f
         
-      - name: Atualizar README.md com a badge
-        run: sed -i '5s~.*~[![Status do Job](\$BADGE_URL)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/\$PIPELINE_EXECUTION_ID)~' readme.md
+      - name: Comando - Atualizar README.md com a badge
+        run: |
+          echo sed -i "5s~.*~[![Status do Job]($BADGE_URL)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
+      
+      - name: Run - Atualizar README.md com a badge
+        run: |
+          sed -i "5s~.*~[![Status do Job]($BADGE_URL)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/$PIPELINE_EXECUTION_ID)~" readme.md
+
 
 
 
