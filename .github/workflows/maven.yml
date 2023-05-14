@@ -160,7 +160,8 @@ jobs:
 
   create-badges-build-unit:
     name: Create Status Badges
-    if:  ${{ always() }} && github.ref != 'refs/heads/master' && github.event_name == 'pull_request'
+    if: ${{ always() && github.ref != 'refs/heads/master' && github.event_name == 'pull_request' }}
+
     runs-on: ubuntu-latest
     needs: [build, unit-tests]
     steps:
@@ -295,7 +296,7 @@ jobs:
       - name: Gerar URL da badge JMETER
         run: |
           echo $jmeter_job_result
-          if [[ "$jmeter_job_result" == "success" ]]; then
+          if [[ "${{ needs.jmeter-tests.result }}" == "success" ]]; then
             echo "BADGE_URL_Jmeter=https://img.shields.io/static/v1?label=Jmeter-Tests\&message=success\&color=green" >> $GITHUB_ENV
           elif [[ "${{ needs.jmeter-tests.result }}" == "failure" ]]; then
             echo "BADGE_URL_Jmeter=https://img.shields.io/static/v1?label=Jmeter-Tests\&message=failure\&color=red" >> $GITHUB_ENV
