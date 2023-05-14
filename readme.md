@@ -2,15 +2,15 @@
 
 [![Build Tests Deploy](https://github.com/lauraFCa/manutencaoSoft/actions/workflows/maven.yml/badge.svg)](https://github.com/lauraFCa/manutencaoSoft/actions/workflows/maven.yml)
 
-[![Status do Job](https://img.shields.io/static/v1?label=Build-and-Analyze&message=success&color=green)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/4970271798)
+[![Status do Job](https://img.shields.io/static/v1?label=Build-and-Analyze&message=success&color=green)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/4970290079)
 
-[![Status do Job](https://img.shields.io/static/v1?label=Unit-Tests&message=success&color=green)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/4970271798)
+[![Status do Job](https://img.shields.io/static/v1?label=Unit-Tests&message=success&color=green)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/4970290079)
 
-[![Status do Job](https://img.shields.io/static/v1?label=Deploy&message=not-run&color=%23808080)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/4970271798)
+[![Status do Job](https://img.shields.io/static/v1?label=Deploy&message=success&color=green)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/4970290079)
 
-[![Status do Job](https://img.shields.io/static/v1?label=Cypress-Tests&message=not-run&color=%23808080)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/4970271798)
+[![Status do Job](https://img.shields.io/static/v1?label=Cypress-Tests&message=success&color=green)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/4970290079)
 
-[![Status do Job](https://img.shields.io/static/v1?label=Jmeter-Tests&message=not-run&color=%23808080)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/4970271798)
+[![Status do Job](https://img.shields.io/static/v1?label=Jmeter-Tests&message=success&color=green)](https://github.com/lauraFCa/manutencaoSoft/actions/runs/4970290079)
 
 # SonarQube Report
 
