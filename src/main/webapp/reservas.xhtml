@@ -36,11 +36,11 @@
                     </p:column>
 
                     <p:column headerText="Data Saída" sortBy="#{lista.dataSaida}" filterBy="#{lista.dataSaida}">
-                        <center>
+
                             <h:outputText value="#{lista.dataSaida}" >
                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
-                        </center>
+
                     </p:column>
                     <p:column headerText="Número de Hospedes" sortBy="#{lista.numeroHospedes}" filterBy="#{lista.numeroHospedes}">
 
@@ -69,7 +69,7 @@
                     </p:column>
 
                     <p:column headerText="Opções" exportable="false">
-                        <center>
+
                             <p:commandButton icon="ui-icon-check" value="Confirmar Checkin" onclick="PF('checkin').show();"> 
                                 <f:setPropertyActionListener target="#{reservasBean.reservas}"
                                                              value="#{lista}" />
@@ -88,7 +88,7 @@
                                 <f:setPropertyActionListener target="#{reservasBean.reservas}"
                                                              value="#{lista}" />
                             </p:commandButton> 
-                        </center>
+
                     </p:column>
 
                 </p:dataTable>

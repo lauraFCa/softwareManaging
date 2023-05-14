@@ -27,12 +27,12 @@
                        
                     </p:column>
 
-                    <p:column headerText="Diária (R$)" sortBy="#{lista.valorDiaria}" filterBy="#{lista.valorDiaria}">
-                        <center>
+                    <p:column align="center" headerText="Diária (R$)" sortBy="#{lista.valorDiaria}" filterBy="#{lista.valorDiaria}">
+
                             <h:outputText value="#{lista.valorDiaria}">
                                 <f:convertNumber pattern="R$#0.00"/>
                             </h:outputText>
-                        </center>
+
                     </p:column>
 
                     <p:column headerText="Capacidade" sortBy="#{lista.capacidade}" filterBy="#{lista.capacidade}">
@@ -41,8 +41,8 @@
                         </center>
                     </p:column>
 
-                    <p:column headerText="Opções" exportable="false">
-                        <center>
+                    <p:column align="center" headerText="Opções" exportable="false">
+
                             <p:commandButton icon="ui-icon-pencil" value="Editar" onclick="PF('record').show();"> 
                                 <f:setPropertyActionListener target="#{categoriasBean.categoria}"
                                                              value="#{lista}" />
@@ -52,7 +52,7 @@
                                 <f:setPropertyActionListener target="#{categoriasBean.categoria}"
                                                              value="#{lista}" />
                             </p:commandButton> 
-                        </center>
+
                     </p:column>
 
                 </p:dataTable>
