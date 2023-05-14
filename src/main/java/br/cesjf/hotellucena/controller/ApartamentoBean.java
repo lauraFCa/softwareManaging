@@ -9,7 +9,6 @@ import br.cesjf.hotellucena.dao.ApartamentoDAO;
 import br.cesjf.hotellucena.model.Apartamento;
 import java.util.ArrayList;
 import javax.faces.bean.ViewScoped;
-import javax.faces.event.ActionEvent;
 
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Document;
@@ -47,13 +46,13 @@ public class ApartamentoBean {
     }
 
     //Métodos dos botões 
-    public void record(ActionEvent actionEvent) {
+    public void record() {
         new ApartamentoDAO().persistir(apartamento);
         apartamentos = new ApartamentoDAO().buscarTodas();
         apartamento = new Apartamento();
     }
 
-    public void exclude(ActionEvent actionEvent) {
+    public void exclude() {
         new ApartamentoDAO().remover(apartamento);
         apartamentos = new ApartamentoDAO().buscarTodas();
         apartamento = new Apartamento();
