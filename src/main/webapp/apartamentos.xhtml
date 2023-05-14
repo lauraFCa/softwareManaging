@@ -27,8 +27,8 @@
 
                     </p:column>
 
-                    <p:column headerText="Opções" exportable="false">
-                        <center>
+                    <p:column align="center" headerText="Opções" exportable="false">
+
                             <p:commandButton icon="ui-icon-pencil" value="Editar" onclick="PF('record').show();"> 
                                 <f:setPropertyActionListener target="#{apartamentosBean.apartamento}"
                                                              value="#{lista}" />
@@ -38,7 +38,7 @@
                                 <f:setPropertyActionListener target="#{apartamentosBean.apartamento}"
                                                              value="#{lista}" />
                             </p:commandButton> 
-                        </center>
+
                     </p:column>
 
                 </p:dataTable>

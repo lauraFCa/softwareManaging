@@ -34,7 +34,7 @@
 
                     </p:column>
                     <p:column headerText="Opções" exportable="false">
-                        <center>
+
                             <p:commandButton icon="ui-icon-pencil" value="Editar" onclick="PF('record').show();"> 
                                 <f:setPropertyActionListener target="#{usuariosBean.usuarios}"
                                                              value="#{lista}" />
@@ -43,7 +43,7 @@
                                 <f:setPropertyActionListener target="#{usuariosBean.usuarios}"
                                                              value="#{lista}" />
                             </p:commandButton> 
-                        </center>
+
                     </p:column>
 
                 </p:dataTable>
