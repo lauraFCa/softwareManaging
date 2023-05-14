@@ -155,8 +155,7 @@ jobs:
 
       - name: Set Job Status
         run: |
-          echo "${{ job.status }}"
-          echo "${{ job.jmeterRun.outcome }}"
+          echo "jmeter_job_result=${{ job.status }}" >> $GITHUB_EN
 
 
   create-badges-build-unit:
@@ -294,7 +293,8 @@ jobs:
     
       - name: Gerar URL da badge JMETER
         run: |
-          if [[ "${{ needs.jmeter-tests.results }}" == "success" ]]; then
+          echo $jmeter_job_result
+          if [[ "$jmeter_job_result" == "success" ]]; then
             echo "BADGE_URL_Jmeter=https://img.shields.io/static/v1?label=Jmeter-Tests\&message=success\&color=green" >> $GITHUB_ENV
           elif [[ "${{ needs.jmeter-tests.result }}" == "failure" ]]; then
             echo "BADGE_URL_Jmeter=https://img.shields.io/static/v1?label=Jmeter-Tests\&message=failure\&color=red" >> $GITHUB_ENV
