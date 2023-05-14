@@ -14,17 +14,20 @@
 
 # SonarQube Report
 
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena)  
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=bugs)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena)  
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena)  
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena)  
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena)  
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=coverage)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena)  
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena)  
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena)  
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena)  
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena)  
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena)  
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena)
+
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena) 
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=bugs)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena) 
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena) 
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena)
+
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena) 
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=coverage)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena) 
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena)
+
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena) 
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena) 
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena) 
 
 
 # Trabalho de Manutenção de Software
