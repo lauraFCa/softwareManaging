@@ -155,12 +155,12 @@ jobs:
 
       - name: Set Job Status
         run: |
-          echo "jmeter_job_result=${{ job.status }}" >> $GITHUB_EN
+          echo "jmeter_job_result=${{ job.status }}" >> $GITHUB_ENV
 
 
   create-badges-build-unit:
     name: Create Status Badges
-    if: github.ref != 'refs/heads/master' && github.event_name == 'pull_request'
+    if:  ${{ always() }} && github.ref != 'refs/heads/master' && github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     needs: [build, unit-tests]
     steps:
@@ -244,6 +244,7 @@ jobs:
       name: Create Status Badges
       runs-on: ubuntu-latest
       needs: [build, unit-tests, deploy, interface-tests, jmeter-tests]
+      if: ${{ always() }}
       steps:
       - uses: actions/checkout@v2
   
