@@ -1,3 +1,11 @@
+College project, involving optimizing a code, applying CI/CD pipelines and testing.
+
+The source project was previously shared with us, and some software architecture frameworks were applied, to better the code.  
+Then the continuous integration pipeline was created, based on Pull Request changes.  
+Within the pipeline there are jobs for building, testing and static code analysis.  
+
+
+
 # Last Pipeline Run
 
 [![Build Tests Deploy](https://github.com/lauraFCa/manutencaoSoft/actions/workflows/maven.yml/badge.svg)](https://github.com/lauraFCa/manutencaoSoft/actions/workflows/maven.yml)
@@ -30,20 +38,21 @@
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=br.cesjf%3AHotelLucena&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=br.cesjf%3AHotelLucena) 
 
 
-# Trabalho de Manutenção de Software
+# Software Maintenance Work
 
-Ferramentas selecionadas:
+Selected tools:
 
-- **Colaboração**: Microsoft Teams (Equipe + Wiki)
+- **Colaboration**: Microsoft Teams (Team + Wiki)
 - **Build**: 
   - (SCM) GitHub
   - (CI) GitHub Actions
   - (Build) Maven
   - (DB) WampServer - MySql
-  - (Análise) SonarQube
-- **Testes**: 
-  - *Unidade*: JUnit
-  - *Funcionais*: Cypress
+  - (Analysis) SonarQube
+- **Tests**: 
+  - *Unit*: JUnit
+  - *Functional*: Cypress
   - *Performance*: JMeter
-- **Implantação**: TomCat (Deploy)
-- **Execução**: 000WebHost
+- **Implementation**: TomCat (Deploy)
+- **Execution**: N/A  
+(for Java, we only found paid plataforms to use)
